@@ -1,0 +1,72 @@
+const usuarios = [ 
+    { id: 1, usuario: 'usuario1', clave: '1234'}, 
+    { id: 2, usuario: 'usuario2',clave: '5678'}, 
+    { id: 3, usuario: 'usuario3', clave: '9101'}, 
+    { id: 4, usuario: 'usuario4', clave:'1121'}, 
+    { id: 5, usuario: 'usuario5', clave: '3141'} 
+];
+
+
+var intentos = 3;
+
+const intentosFallidos= JSON.parse(localStorage.getItem('intentosFallidos')) || {};
+const usuariosBloqueados =JSON.parse(localStorage.getItem('usuariosBloqueados'))|| {};
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+
+    let user= document.getElementById("tipodeUsuario").value;
+    let password =document.getElementById("tipodeContraseña").value;
+
+    const tipodeUsuario = usuarios.find(u => u.tipodeUsuario===user);
+
+
+if(tipodeUsuario.tipodeContraseña===usuarios){
+    alert('Bienvenido');
+    return 
+}
+
+else
+{
+alert('Error');
+
+intentosFallidos[usuario.usuario] = (intentosFallidos[usuario.usuario] || 0) + 1; 
+
+}
+if (intentosFallidos[usuario.usuario] >=intentos){
+    alert('Usuario bloqueado, demasiados intentos fallidos');
+    usuariosBloqueados[usuario.usuario] = true;
+    localStorage.setItem('usuariosBloqueados',JSON.stringify(usuariosBloqueados));
+} else{
+    localStorage.setItem('usuariosBloqueados',JSON.stringify(intentosFallidos));
+}
+
+if (usuariosBloqueados[usuario.usuario]){
+alert('Usuario bloqueado');
+return;
+}
+});
+
+
+
+
+
+
+
+
+
+/*let iniciodeSesion = ''
+function ingresoUsuario (usuario){
+iniciodeSesion = usuario.options[usuario.selectedIndex]
+
+console.log(iniciodeSesion)
+} */
+
+
+
+var intentos = 3;
+
+const intentosFallidos= JSON.parse(localStorage.getItem('intentosFallidos')) || {};
+const usuariosBloqueados =JSON.parse(localStorage.getItem('usuariosBloqueados'))|| {};
+
